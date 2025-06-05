@@ -32,6 +32,8 @@
       color: var(--dark);
       line-height: 1.6;
       background-color: var(--white);
+      margin: 0;
+      padding: 0;
     }
     
     h1, h2, h3, h4 {
@@ -70,6 +72,7 @@
       display: flex;
       gap: 15px;
       justify-content: center;
+      flex-wrap: wrap;
     }
     
     /* Button Styles */
@@ -125,11 +128,13 @@
       height: 100%;
       overflow: auto;
       background-color: rgba(0,0,0,0.6);
+      align-items: center;
+      justify-content: center;
     }
     
     .modal-content {
       background-color: #fff;
-      margin: 5% auto;
+      margin: 20px;
       padding: 30px;
       border-radius: 12px;
       max-width: 500px;
@@ -138,10 +143,13 @@
       overflow-y: auto;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
       color: var(--dark);
+      position: relative;
     }
     
     .close-modal {
-      float: right;
+      position: absolute;
+      top: 15px;
+      right: 15px;
       font-size: 24px;
       font-weight: bold;
       cursor: pointer;
@@ -149,28 +157,28 @@
     }
     
     #contact-form .form-group {
-        margin-bottom: 20px;
+      margin-bottom: 20px;
     }
     
     #contact-form label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 600;
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
     }
     
     #contact-form input,
     #contact-form select,
     #contact-form textarea {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        font-size: 16px;
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
     }
     
     #contact-form button {
-        width: 100%;
-        margin-top: 10px;
+      width: 100%;
+      margin-top: 10px;
     }
     
     /* Checkboxes in form */
@@ -191,6 +199,10 @@
     
     /* Responsive */
     @media (max-width: 768px) {
+      .cta-section {
+        padding: 60px 0;
+      }
+      
       .cta-section h2 {
         font-size: 2rem;
       }
@@ -243,35 +255,35 @@
           <input type="tel" id="phone" name="phone" required>
         </div>
   
-          <div class="form-group">
-            <label>Preferred Locations (check all that apply)</label>
-            <div class="checkbox-group after-text">
-              <label class="checkbox-inline">
-                Downtown San Antonio
-                <input type="checkbox" name="locations" value="Downtown San Antonio">
-              </label>
-              <label class="checkbox-inline">
-                Alamo Heights
-                <input type="checkbox" name="locations" value="Alamo Heights">
-              </label>
-              <label class="checkbox-inline">
-                Stone Oak
-                <input type="checkbox" name="locations" value="Stone Oak">
-              </label>
-              <label class="checkbox-inline">
-                Northwest Side
-                <input type="checkbox" name="locations" value="Northwest Side">
-              </label>
-              <label class="checkbox-inline">
-                Medical Center
-                <input type="checkbox" name="locations" value="Medical Center">
-              </label>
-              <label class="checkbox-inline">
-                Other
-                <input type="checkbox" name="locations" value="Other">
-              </label>
-            </div>
+        <div class="form-group">
+          <label>Preferred Locations (check all that apply)</label>
+          <div class="checkbox-group after-text">
+            <label class="checkbox-inline">
+              Downtown San Antonio
+              <input type="checkbox" name="locations" value="Downtown San Antonio">
+            </label>
+            <label class="checkbox-inline">
+              Alamo Heights
+              <input type="checkbox" name="locations" value="Alamo Heights">
+            </label>
+            <label class="checkbox-inline">
+              Stone Oak
+              <input type="checkbox" name="locations" value="Stone Oak">
+            </label>
+            <label class="checkbox-inline">
+              Northwest Side
+              <input type="checkbox" name="locations" value="Northwest Side">
+            </label>
+            <label class="checkbox-inline">
+              Medical Center
+              <input type="checkbox" name="locations" value="Medical Center">
+            </label>
+            <label class="checkbox-inline">
+              Other
+              <input type="checkbox" name="locations" value="Other">
+            </label>
           </div>
+        </div>
   
         <div class="form-group">
           <label for="timeline">Timeline to Move</label>
@@ -315,7 +327,6 @@
       const callNowBtn = document.getElementById('call-now-btn');
       const emailMeBtn = document.getElementById('email-me-btn');
       const closeModal = document.querySelector('.close-modal');
-      const contactForm = document.getElementById('contact-form');
       
       // Open modal for both buttons
       callNowBtn.addEventListener('click', function() {
@@ -362,6 +373,10 @@
         }).then(() => {
           e.target.reset();
           status.innerText = "Thank you! Your form has been submitted.";
+          setTimeout(() => {
+            contactModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+          }, 2000);
         }).catch(() => {
           status.innerText = "Something went wrong. Please try again later.";
         });
